@@ -1,0 +1,70 @@
+:root {
+    --purple-500: hsl(259, 100%, 65%);
+    --red-400: hsl(0, 100%, 67%);
+    --white: hsl(0, 100%, 100%);
+    --grey-100: hsl(0, 0%, 94%);
+    --grey-200: hsl(0, 0%, 86%);
+    --grey-500: hsl(0, 1%, 44%);
+    --black: hsl(0, 0%, 0%);
+}
+
+html {
+    font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('./assets/fonts/Poppins-Regular.ttf');
+    font-weight: 400 800;
+}
+
+body {
+    font-family: Poppins, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100vw;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--grey-200);
+}
+
+main {
+    width: clamp(15rem, 80%, 40rem);
+    background-color: var(--white);
+    padding: 2rem;
+}
+.submit-btn {
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--purple-500);
+    color:var(--white);
+}
+.input-section {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    width: clamp(5rem, 20%, 15rem);
+}
+.error-message {
+    display: none;
+    color: var(--red-400);
+    margin-top: 0.3rem;
+    font-style: italic;
+}
+
+.error {
+    border-color: var(--red);
+}
