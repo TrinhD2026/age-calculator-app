@@ -107,8 +107,8 @@ function validateForm() {
         else {
             day = Number(dayStr);
 
-            let dateObj = new Date(year, month - 1, day);
-            if (isNaN(dateObj) || dateObj.getDate() != day || dateObj.getMonth() != month - 1 || dateObj.getFullYear() != year) {
+            let birthday = new Date(year, month - 1, day);
+            if (isNaN(birthday) || birthday.getDate() != day || birthday.getMonth() != month - 1 || birthday.getFullYear() != year) {
                 addRemoveErrorClass(inputDay, true);
                 addRemoveErrorClass(dayLabel, true, "label-error");
                 setErrorMessage(dayError, "Must be a valid day");
@@ -118,6 +118,7 @@ function validateForm() {
                 addRemoveErrorClass(inputDay, false);
                 addRemoveErrorClass(dayLabel, false, "label-error");
                 setErrorMessage(dayError, "");
+                calculateDatesDifference(birthday, currentDate);
             }
         }
     }
@@ -128,6 +129,56 @@ function validateForm() {
     }
 
     return results["day"] && results["month"] && results["year"];
+}
+
+function calculateDatesDifference(birthday, currDay) {
+    let yearDiff = 0, monthDiff = 0, dayDiff = 0;
+    let oldDay = birthday.getDate();
+    let newDay = currDay.getDate();
+    if (newDay < oldDay) {
+        monthDiff--;
+        dayDiff = newDay;
+        dayDiff += getTotalDaysInMonth(birthday.getMonth(), birthday.getFullYear()) - oldDay;
+    }
+    else {
+        dayDiff = newDay - oldDay;
+    }
+
+    monthDiff += (currDay.getMonth() - birthday.getMonth());
+    if (monthDiff < 0) {
+        yearDiff--;
+        monthDiff += 12;
+    }
+
+    yearDiff += (currDay.getFullYear() - birthday.getFullYear());
+
+    outputDay.textContent = `${dayDiff}`;
+    outputMonth.textContent = `${monthDiff}`;
+    outputYear.textContent = `${yearDiff}`;
+}
+
+function checkLeapYear(year) {
+    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+}
+
+function getTotalDaysInMonth(month, year) {
+    switch (month) {
+        case 1:
+            return checkLeapYear(year) ? 29 : 28;
+        case 3:
+        case 5:
+        case 8:
+            return 30;
+        case 0:
+        case 2:
+        case 4:
+        case 6:
+        case 7:
+        case 9:
+        case 11:
+        default:
+            return 31;
+    }
 }
 
 function addRemoveErrorClass(element, isError, className="error") {
@@ -161,6 +212,10 @@ function resetInputStatus() {
     addRemoveErrorClass(inputYear, false);
     addRemoveErrorClass(yearLabel, false);
     setErrorMessage(yearError, "");
+
+    outputDay.textContent = "--";
+    outputMonth.textContent = "--";
+    outputYear.textContent = "--";
 }
 
 form.addEventListener("submit", (event) => {
