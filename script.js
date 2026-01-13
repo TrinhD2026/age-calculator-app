@@ -118,6 +118,7 @@ function validateForm() {
                 addRemoveErrorClass(inputDay, false);
                 addRemoveErrorClass(dayLabel, false, "label-error");
                 setErrorMessage(dayError, "");
+                //only calculate dates difference once we are sure there's no issue with input values
                 calculateDatesDifference(birthday, currentDate);
             }
         }
