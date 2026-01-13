@@ -108,7 +108,7 @@ function validateForm() {
             day = Number(dayStr);
 
             let birthday = new Date(year, month - 1, day);
-            if (isNaN(birthday) || birthday.getDate() != day || birthday.getMonth() != month - 1 || birthday.getFullYear() != year) {
+            if (isNaN(birthday) || birthday.getDate() !== day || birthday.getMonth() !== month - 1 || birthday.getFullYear() !== year) {
                 addRemoveErrorClass(inputDay, true);
                 addRemoveErrorClass(dayLabel, true, "label-error");
                 setErrorMessage(dayError, "Must be a valid day");
