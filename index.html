@@ -15,30 +15,32 @@
         <form class="form" id="form">
             <div class="input-section">
                 <div class="input-container day-container">
-                    <label for="input-day">Day</label>
+                    <label id="day-label" for="input-day">Day</label>
                     <input type="number" class="input input-day" id="input-day" name="day">
                     <p class="error-message" id="day-error"></p>
                 </div>
                 <div class="input-container month-container">
-                    <label for="input-month">Month</label>
+                    <label  id="month-label" for="input-month">Month</label>
                     <input type="number" class="input input-month" id="input-month" name="month">
                     <p class="error-message" id="month-error"></p>
                 </div>
                 <div class="input-container year-container">
-                    <label for="input-year">year</label>
+                    <label  id="year-label" for="input-year">Year</label>
                     <input type="number" class="input input-year" id="input-year" name="year">
                     <p class="error-message" id="year-error"></p>
                 </div>
             </div>
-
-            <button type="submit" id="submit-btn" class="submit-btn">
-                <img src="./assets/images/icon-arrow.svg" alt="pointing down arrow" class="btn-img" />
-            </button>
+            <div class="btn-container">
+                <button type="submit" id="submit-btn" class="submit-btn">
+                    <img src="./assets/images/icon-arrow.svg" alt="pointing down arrow" class="btn-img" />
+                </button>
+                <div class="divider"></div>
+            </div>
         </form>
         <section class="output-container">
-            <p><span class="output output-year" id="output-year">--</span> Years</p>
-            <p><span class="output output-month" id="output-month">--</span> Months</p>
-            <p><span class="output output-day" id="output-day">--</span> Days</p>
+            <p class="result"><span class="output output-year" id="output-year">--</span> years</p>
+            <p class="result"><span class="output output-month" id="output-month">--</span> months</p>
+            <p class="result"><span class="output output-day" id="output-day">--</span> days</p>
         </section>
     </main>
     <script src="./script.js"></script>

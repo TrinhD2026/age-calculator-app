@@ -26,6 +26,30 @@ html {
     font-weight: 400 800;
 }
 
+@font-face {
+    font-family: 'Poppins Italic';
+    src: url('./assets/fonts/Poppins-Italic.ttf');
+    font-weight: 400 800;
+}
+
+@font-face {
+    font-family: 'Poppins Bold';
+    src: url('./assets/fonts/Poppins-Bold.ttf');
+    font-weight: 400 800;
+}
+
+@font-face {
+    font-family: 'Poppins Extra Bold';
+    src: url('./assets/fonts/Poppins-ExtraBold.ttf');
+    font-weight: 400 800;
+}
+
+@font-face {
+    font-family: 'Poppins Extra Bold Italic';
+    src: url('./assets/fonts/Poppins-ExtraBoldItalic.ttf');
+    font-weight: 400 800;
+}
+
 body {
     font-family: Poppins, sans-serif;
     display: flex;
@@ -34,37 +58,127 @@ body {
     min-width: 100vw;
     justify-content: center;
     align-items: center;
-    background-color: var(--grey-200);
+    background-color: var(--grey-100);
 }
 
 main {
     width: clamp(15rem, 80%, 40rem);
     background-color: var(--white);
-    padding: 2rem;
+    padding: 3rem 2rem;
+    border-radius: 1rem 1rem 5rem 1rem;
 }
-.submit-btn {
-    border: 0;
-    border-radius: 50%;
-    background-color: var(--purple-500);
-    color:var(--white);
+
+.form {
+    font-family: 'Poppins Bold';
+    color: var(--grey-500);
 }
+
 .input-section {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .input-container {
     display: flex;
     flex-direction: column;
-    width: clamp(5rem, 20%, 15rem);
+    width: clamp(5rem, 4.8rem + 2vw, 10rem);
 }
+
+.input {
+    font-family: 'Poppins Bold';
+    color: var(--black);
+    font-size: 1rem;
+    height: 2.5rem;
+    padding-left: 0.5rem;
+    border: 0.15rem solid var(--grey-500);
+    border-radius: 0.2rem;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.4s ease-out;
+}
+
+.input:hover, .input:focus{
+    border-color: var(--purple-500);
+}
+
+.btn-container {
+    margin-top: 2rem;
+    display: grid;
+    align-items: center;
+}
+
+.submit-btn {
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--purple-500);
+    color: var(--white);
+    z-index: 3;
+    padding: 0.8rem;
+    cursor: pointer;
+    width: clamp(3rem, 2.8rem + 1vw, 4rem);
+    height: clamp(3rem, 2.8rem + 1vw, 4rem);
+    grid-column: 1;
+    grid-row: 1;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    transition: background-color 0.4s ease-out;
+}
+
+.submit-btn:hover{
+    background-color: var(--black);
+}
+
+.submit-btn:active{
+    background-color: var(--grey-500);
+}
+
+.btn-img {
+    max-inline-size: 100%;
+    block-size: auto;
+}
+
+.divider {
+    height: 0.1rem;
+    background-color: var(--grey-200);
+    width: 100%;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.result {
+    font-size: clamp(3rem, 2.8rem + 0.9vw, 3.4rem);
+    font-family: 'Poppins Extra Bold Italic';
+}
+
+.output {
+    color: var(--purple-500);
+}
+
 .error-message {
+    font-family: 'Poppins Italic';
     display: none;
     color: var(--red-400);
     margin-top: 0.3rem;
-    font-style: italic;
+    font-size: 0.8rem;
 }
 
 .error {
-    border-color: var(--red);
+    border-color: var(--red-400);
+}
+
+.label-error{
+    color: var(--red-400);
+}
+
+/*screen resize style*/
+@media screen and (width >= 40rem) {
+    .input-section {
+        justify-content:flex-start;
+        gap: 2rem;
+    }
+    .submit-btn {
+        margin-left: 100%;
+        transform: translateX(-100%);
+    }
 }

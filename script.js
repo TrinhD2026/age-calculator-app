@@ -2,6 +2,9 @@ const form = document.getElementById("form");
 const inputDay = document.getElementById("input-day");
 const inputMonth = document.getElementById("input-month");
 const inputYear = document.getElementById("input-year");
+const dayLabel = document.getElementById("day-label");
+const monthLabel = document.getElementById("month-label");
+const yearLabel = document.getElementById("year-label");
 const dayError = document.getElementById("day-error");
 const monthError = document.getElementById("month-error");
 const yearError = document.getElementById("year-error");
@@ -29,24 +32,28 @@ function validateForm() {
     if (yearStr !== "") {
         //check if input has "e" special number
         if (isENumber(yearStr)) {
-            setErrorClass(inputYear, true);
+            addRemoveErrorClass(inputYear, true);
+            addRemoveErrorClass(yearLabel, true, "label-error");
             setErrorMessage(yearError, "Must be a valid year");
         }
         else {
             year = Number(yearStr);
             if (year >= currentDate.getFullYear()) {
-                setErrorClass(inputYear, true);
+                addRemoveErrorClass(inputYear, true);
+                addRemoveErrorClass(yearLabel, true, "label-error");
                 setErrorMessage(yearError, "Must be in the past");
             }
             else {
                 results["year"] = true;
-                setErrorClass(inputYear, false);
+                addRemoveErrorClass(inputYear, false);
+                addRemoveErrorClass(yearLabel, false, "label-error");
                 setErrorMessage(yearError, "");
             }
         }
     }
     else {
-        setErrorClass(inputYear, true);
+        addRemoveErrorClass(inputYear, true);
+        addRemoveErrorClass(yearLabel, true, "label-error");
         setErrorMessage(yearError, "This field is requried");
     }
 
@@ -55,24 +62,28 @@ function validateForm() {
     if (monthStr !== "") {
         //check if input has "e" special number
         if (isENumber(monthStr)) {
-            setErrorClass(inputMonth, true);
+            addRemoveErrorClass(inputMonth, true);
+            addRemoveErrorClass(monthLabel, true, "label-error");
             setErrorMessage(monthError, "Must be a valid month");
         }
         else {
             month = Number(monthStr);
             if (month >= 13 || month <= 0) {
-                setErrorClass(inputMonth, true);
+                addRemoveErrorClass(inputMonth, true);
+                addRemoveErrorClass(monthLabel, true, "label-error");
                 setErrorMessage(monthError, "Must be a valid month");
             }
             else {
                 results["month"] = true;
-                setErrorClass(inputMonth, false);
+                addRemoveErrorClass(inputMonth, false);
+                addRemoveErrorClass(monthLabel, false, "label-error");
                 setErrorMessage(monthError, "");
             }
         }
     }
     else {
-        setErrorClass(inputMonth, true);
+        addRemoveErrorClass(inputMonth, true);
+        addRemoveErrorClass(monthLabel, true, "label-error");
         setErrorMessage(monthError, "This field is requried");
     }
 
@@ -81,39 +92,50 @@ function validateForm() {
     let dayStr = inputDay.value.trim();
     if (dayStr !== "") {
         //check if input has "e" special number or month/year is invalid 
-        if (isENumber(dayStr) || !results["month"] || !results["year"]) {
-            setErrorClass(inputDay, true);
+        if (isENumber(dayStr)) {
+            addRemoveErrorClass(inputDay, true);
+            addRemoveErrorClass(dayLabel, true, "label-error");
             setErrorMessage(dayError, "Must be a valid day");
+        }
+        else if (!results["month"] || !results["year"]) {
+            if (Number(dayStr) > 31) {
+                addRemoveErrorClass(inputDay, true);
+                addRemoveErrorClass(dayLabel, true, "label-error");
+                setErrorMessage(dayError, "Must be a valid day");
+            }
         }
         else {
             day = Number(dayStr);
 
             let dateObj = new Date(year, month - 1, day);
             if (isNaN(dateObj) || dateObj.getDate() != day || dateObj.getMonth() != month - 1 || dateObj.getFullYear() != year) {
-                setErrorClass(inputDay, true);
+                addRemoveErrorClass(inputDay, true);
+                addRemoveErrorClass(dayLabel, true, "label-error");
                 setErrorMessage(dayError, "Must be a valid day");
             }
             else {
                 results["day"] = true;
-                setErrorClass(inputDay, false);
+                addRemoveErrorClass(inputDay, false);
+                addRemoveErrorClass(dayLabel, false, "label-error");
                 setErrorMessage(dayError, "");
             }
         }
     }
     else {
-        setErrorClass(inputDay, true);
+        addRemoveErrorClass(inputDay, true);
+        addRemoveErrorClass(dayLabel, true, "label-error");
         setErrorMessage(dayError, "This field is requried");
     }
 
     return results["day"] && results["month"] && results["year"];
 }
 
-function setErrorClass(element, isError) {
-    if (element.classList.contains("error"))
-        element.classList.remove("error");
+function addRemoveErrorClass(element, isError, className="error") {
+    if (element.classList.contains(className))
+        element.classList.remove(className);
 
     if (isError)
-        element.classList.add("error");
+        element.classList.add(className);
 }
 
 function setErrorMessage(element, message) {
@@ -127,7 +149,22 @@ function setErrorMessage(element, message) {
     }
 }
 
+function resetInputStatus() {
+    addRemoveErrorClass(inputDay, false);
+    addRemoveErrorClass(dayLabel, false);
+    setErrorMessage(dayError, "");
+
+    addRemoveErrorClass(inputMonth, false);
+    addRemoveErrorClass(monthLabel, false);
+    setErrorMessage(monthError, "");
+
+    addRemoveErrorClass(inputYear, false);
+    addRemoveErrorClass(yearLabel, false);
+    setErrorMessage(yearError, "");
+}
+
 form.addEventListener("submit", (event) => {
+    resetInputStatus();
     event.preventDefault();
     validateForm();
 });
